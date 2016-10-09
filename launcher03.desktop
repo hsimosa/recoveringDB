@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=RECUPERADOR
+Comment=Para ser usado en recuperacion de datos.
+Exec=python /home/hector/Desktop/ALG/REPARACIONBD/agregaBD8.py
+Path=/home/hector/Desktop/ALG/REPARACIONBD/
+Icon=/home/hector/Desktop/ALG/REPARACIONBD/Imagen/UCicon-1.jpg
+Terminal=false
+Type=Application
+Categories=Utility;Application;Development;
