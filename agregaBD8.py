@@ -8,9 +8,9 @@
 # Development Status: Production/Stable
 # Environment:Console
 # Programming Language: Python-Twisted
-# Date:07.10.2016 15:40:54
-# Version: 3
-# Revision: 0.9
+# Date:10.10.2016 16:50:44
+# Version: 4
+# Revision: 0
 #
 # This program is based on free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -140,14 +140,12 @@ class Clientes:
 
         button = gtk.Button("Cerrar")
         self.hbox.pack_start(button, True, True, 2)
-        # button.connect("clicked", self.on_cerrar_clicked)  # When this button is clicked, terminates the application
         button.connect_object("clicked", gtk.Widget.destroy, self.mainWindow)
         self.tooltips.set_tip(button, "Cerrar aplicacion")
 
         separator = gtk.HSeparator()
         self.vbox.pack_start(separator, False, True, 5)
-        #self.add(self.image)
-        #self.image.show()
+
         self.mainWindow.show_all()
         gtk.main()
 
@@ -162,11 +160,11 @@ class Clientes:
         archivos = self.entry7.set_text(str(len(files)))
 
         # 3ro. Extraer la primera pagina del PDF de los Archivos en /PROCESAR
-        print 'En ejecucion paso 3ro'
+        #print 'En ejecucion paso 3ro'	#PRINT PARA CHEQUEAR
         print
         os.system(
             'for file in PROCESAR/*; do gs -dSAFER -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile="${file%.pdf}-p1.pdf" -dFirstPage=1 -dLastPage=1 "$file" ; done')
-        os.system('rename -f s/\-p1.pdf$/\.pdf/ ./PROCESAR/*-p1.pdf')  # Renombra la primera pagina de los PDF	OK
+        os.system('rename -f s/\-p1.pdf$/\.pdf/ ./PROCESAR/*-p1.pdf')  # Renombra la primera pagina de los PDF
 
     # 2do Boton
     def on_proximo_clicked(self, widget, data=None):
@@ -176,11 +174,11 @@ class Clientes:
         print 'proximo=', proximo
         self.entry1.set_text(str(proximo))
 
-        # 2doA. Contar cantidad de archivos a procesar nuevamente	OK
+        # 2doA. Contar cantidad de archivos a procesar nuevamente
         path, dirs, files = os.walk('PROCESAR').next()
         archivos = self.entry7.set_text(str(len(files)))
 
-        # 5to. Iniciar OCR para recabar datos	OK
+        # 5to. Iniciar OCR para recabar datos	
         subprocess.Popen(['./pbar_TX2.sh'], stdout=subprocess.PIPE, shell=True)
         subprocess.Popen([config.DIROP + '/OCRbd.py'], shell=True).communicate()[0]
 		
@@ -285,10 +283,5 @@ class Clientes:
     def main(self):
         gtk.main()
 
-    #def gtk_main_quit(self, widget):	#Es necesario esto?
-    #    gtk.main_quit()
-
-
-#if __name__ == "__main__":
 Clientes()
 gtk.main()
